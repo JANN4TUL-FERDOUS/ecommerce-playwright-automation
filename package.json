@@ -1,0 +1,23 @@
+{
+  "name": "ecommerce-playwright-automation",
+  "version": "1.0.0",
+  "description": "End-to-end web test automation framework for an e-commerce application using Playwright, JavaScript, and Node.js.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JANN4TUL-FERDOUS/ecommerce-playwright-automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JANN4TUL-FERDOUS/ecommerce-playwright-automation/issues"
+  },
+  "homepage": "https://github.com/JANN4TUL-FERDOUS/ecommerce-playwright-automation#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  }
+}
