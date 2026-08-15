@@ -29,7 +29,7 @@ export default defineConfig({
   /* Shared settings for all projects */
   use: {
     /* Base URL for the application */
-    baseURL: 'https://demo.nopcommerce.com',
+    baseURL: 'https://ovcharski.com/shop/',
 
     /* Capture screenshot only when a test fails */
     screenshot: 'only-on-failure',
