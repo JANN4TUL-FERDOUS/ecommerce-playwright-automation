@@ -40,8 +40,6 @@ export default defineConfig({
     /* Record video on first retry */
     video: 'on-first-retry',
 
-    /* Browser viewport */
-    viewport: { width: 1440, height: 900 },
   },
 
   /* Browser projects */
