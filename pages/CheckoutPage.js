@@ -15,6 +15,8 @@ export class CheckoutPage {
         this.phoneInput = page.locator('#billing_phone');
         this.emailInput = page.locator('#billing_email');
 
+        this.emailError = page.locator('#billing_email_description');
+
         this.stripePayment = page.locator('#payment_method_stripe');
         this.codPayment = page.locator('#payment_method_cod');
 
@@ -58,11 +60,11 @@ export class CheckoutPage {
 
     async selectPaymentMethod(method = 'stripe') {
         if (method === 'stripe') {
-            await this.stripePayment.check();
+            await this.page.locator('label[for="payment_method_stripe"]').click();
         }
 
         if (method === 'cod') {
-            await this.codPayment.check();
+            await this.page.locator('label[for="payment_method_cod"]').click();
         }
     }
 
@@ -74,7 +76,14 @@ export class CheckoutPage {
         await this.placeOrderButton.click();
     }
 
-    async expectCheckoutValidation() {
+    async expectInvalidEmailError() {
+        await expect(this.emailError).toBeVisible();
+        await expect(this.emailError).toContainText(
+            'Email address is not a valid email address.'
+        );
+    }
+    
+    async expectOrderNotPlaced() {
         await expect(this.page).toHaveURL(/\/checkout\/?$/);
         await expect(this.orderReview).toBeVisible();
     }

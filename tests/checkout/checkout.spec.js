@@ -87,7 +87,7 @@ test.describe('Checkout', () => {
 
         await checkoutPage.placeOrder();
 
-        await checkoutPage.expectCheckoutValidation();
+        await checkoutPage.expectOrderNotPlaced();
     });
     
     test('user cannot checkout with an invalid email address', async ({ page }) => {
@@ -120,8 +120,48 @@ test.describe('Checkout', () => {
         });
 
         await checkoutPage.placeOrder();
-       
-        await checkoutPage.expectCheckoutValidation();
+        
+        await checkoutPage.expectInvalidEmailError();
+
+        await checkoutPage.expectOrderNotPlaced();
+    });
+
+    test('user can select cash on delivery payment method', async ({ page }) => {
+        const productName = 'Jenkins Actor';
+
+        const productPage = new ProductPage(page);
+        const cartPage = new CartPage(page);
+        const checkoutPage = new CheckoutPage(page);
+
+        await page.goto('./');
+
+        await page.getByRole('link', { name: productName }).first().click();
+        await productPage.expectProductTitle(productName);
+        await productPage.addToCart();
+
+        await cartPage.open();
+        await cartPage.expectProductInCart(productName);
+
+        await page.getByRole('link', {
+            name: /Proceed to checkout/i
+        }).click();
+
+        await checkoutPage.expectCheckoutPage();
+
+        await checkoutPage.fillBillingDetails({
+            firstName: 'Test',
+            lastName: 'User',
+            country: 'NL',
+            address: 'Test Street 123',
+            postcode: '1011AB',
+            city: 'Amsterdam',
+            phone: '0612345678',
+            email: 'test@example.com',
+        });
+
+        await checkoutPage.selectPaymentMethod('cod');
+
+        await expect(checkoutPage.codPayment).toBeChecked();
     });
 
 });
